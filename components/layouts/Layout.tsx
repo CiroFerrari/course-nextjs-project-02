@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { NavBar } from "../ui";
 
 type LayoutProps = {
   children: JSX.Element | JSX.Element[],
@@ -15,9 +16,11 @@ export const Layout = ({ children, title }: LayoutProps) => {
         <meta name="keywords" content={`${ title }, pokemon, pokedex`} />
       </Head>
 
-      {/* NavBar */}
+      <NavBar />
 
-      <main>
+      <main style={{
+        padding: '0 20px',
+      }}>
         { children }
       </main>
 
