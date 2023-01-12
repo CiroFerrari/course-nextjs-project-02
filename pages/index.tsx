@@ -11,8 +11,6 @@ type HomePageProps = {
 
 const HomePage: NextPage<HomePageProps> = ({ pokemons }) => {
 
-  console.log(pokemons);
-
   return (
     <Layout title='Listado de Pokemons'>
       <Grid.Container gap={2} justify='flex-start'>
