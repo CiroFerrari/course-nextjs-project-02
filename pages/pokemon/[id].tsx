@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { pokeApi } from "../../api";
 import { Layout } from "../../components/layouts";
 import { Pokemon } from "../../interfaces";
+import { localFavorites } from "../../utils";
 
 type PokemonPageProps = {
   pokemon: Pokemon
@@ -12,8 +13,12 @@ export default function PokemonPage({ pokemon }: PokemonPageProps) {
 
   const router = useRouter();
 
+  const onToggleFavorite = () => {
+    localFavorites.toggleFavorite(pokemon.id);
+  }
+
   return (
-    <Layout title='Algún pokémon'>
+    <Layout title={ pokemon.name }>
       <Grid.Container css={{ marginTop: '5px' }} gap={2}>
         <Grid xs={12} sm={4}>
           <Card isHoverable css={{ padding: '30px' }}>
@@ -35,6 +40,7 @@ export default function PokemonPage({ pokemon }: PokemonPageProps) {
               <Button
                 color="gradient"
                 ghost
+                onClick={onToggleFavorite}
               >
                 Guardar en favoritos
               </Button>
