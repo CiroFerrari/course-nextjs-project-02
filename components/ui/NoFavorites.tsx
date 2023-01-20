@@ -1,6 +1,6 @@
 import { Container, Image, Text } from "@nextui-org/react";
 
-export default function NoFavorites() {
+export function NoFavorites() {
   return (
     <Container css={{
       display: 'flex',
