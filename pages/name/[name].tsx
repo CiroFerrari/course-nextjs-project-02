@@ -21,7 +21,7 @@ export default function PokemonByNamePage({ pokemon }: PokemonPageProps) {
     localFavorites.toggleFavorite(pokemon.id);
     setIsInFavorites(!isInFavorites);
 
-    if(isInFavorites) return;
+    if (isInFavorites) return;
 
     confetti({
       zIndex: 999,
@@ -29,7 +29,7 @@ export default function PokemonByNamePage({ pokemon }: PokemonPageProps) {
       spread: 160,
       angle: -100,
       origin: {
-        x: 1, 
+        x: 1,
         y: 0,
       }
     })
@@ -37,7 +37,7 @@ export default function PokemonByNamePage({ pokemon }: PokemonPageProps) {
   }
 
   return (
-    <Layout title={ pokemon.name }>
+    <Layout title={pokemon.name}>
       <Grid.Container css={{ marginTop: '5px' }} gap={2}>
         <Grid xs={12} sm={4}>
           <Card isHoverable css={{ padding: '30px' }}>
@@ -58,10 +58,10 @@ export default function PokemonByNamePage({ pokemon }: PokemonPageProps) {
               <Text h1 transform="capitalize">{pokemon.name}</Text>
               <Button
                 color="gradient"
-                ghost={ !isInFavorites }
+                ghost={!isInFavorites}
                 onClick={onToggleFavorite}
               >
-                { isInFavorites ? 'En favoritos' : 'Guardar en favoritos' }
+                {isInFavorites ? 'En favoritos' : 'Guardar en favoritos'}
               </Button>
             </Card.Header>
             <Card.Body>
@@ -103,7 +103,7 @@ export default function PokemonByNamePage({ pokemon }: PokemonPageProps) {
 export async function getStaticPaths(context: any) {
 
   const { data } = await pokeApi.get<PokemonListResponse>('/pokemon?limit=151');
-  const pokemonNames: string[] = data.results.map( pokemon => pokemon.name );
+  const pokemonNames: string[] = data.results.map(pokemon => pokemon.name);
 
   return {
     paths: pokemonNames.map(name => ({
@@ -121,9 +121,15 @@ export async function getStaticProps(context: any) {
 
   const { data } = await pokeApi.get<Pokemon>(`/pokemon/${name}`);
 
+  const pokemon = {
+    id: data.id,
+    name: data.name,
+    sprites: data.sprites,
+  }
+
   return {
     props: {
-      pokemon: data
+      pokemon
     },
   }
 }
