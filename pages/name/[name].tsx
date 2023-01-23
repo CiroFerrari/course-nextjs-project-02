@@ -6,6 +6,7 @@ import { Layout } from "../../components/layouts";
 import { Pokemon, PokemonListResponse } from "../../interfaces";
 import { getPokemonInfo, localFavorites } from "../../utils";
 import confetti from 'canvas-confetti';
+import { redirect } from "next/dist/server/api-utils";
 
 type PokemonPageProps = {
   pokemon: Pokemon
@@ -109,7 +110,7 @@ export async function getStaticPaths(context: any) {
     paths: pokemonNames.map(name => ({
       params: { name }
     })),
-    fallback: false
+    fallback: 'blocking'
   }
 
 }
@@ -119,9 +120,20 @@ export async function getStaticProps(context: any) {
   const { params } = context;
   const { name } = params as { name: string };
 
+  const pokemon = await getPokemonInfo(name);
+
+  if (!pokemon) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false
+      }
+    }
+  }
+
   return {
     props: {
-      pokemon: await getPokemonInfo(name),
+      pokemon,
     },
   }
 }
