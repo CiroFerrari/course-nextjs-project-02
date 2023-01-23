@@ -122,5 +122,6 @@ export async function getStaticProps(context: any) {
     props: {
       pokemon: await getPokemonInfo(id),
     },
+    revalidate: 86400,
   }
 }
