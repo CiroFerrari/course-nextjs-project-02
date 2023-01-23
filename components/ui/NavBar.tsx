@@ -24,9 +24,9 @@ export const NavBar = () => {
         height={70}
       />
 
-      <Link href="/" passHref>
+      <Link href="/" passHref style={{display: 'flex'}}>
         <Text color="white" h2>P</Text>
-        <Text color="white" h3>okemon</Text>
+        <Text color="white" h3 style={{margin: '0'}}>okemon!</Text>
       </Link>
 
       <Spacer css={{ flex: 1 }} />
